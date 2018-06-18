@@ -9,6 +9,7 @@ IR Project in ZJU 2018 Summer
 
 ## 结构
 
+```
 IRProject
 |_Reuters // 语料库文件夹，不提供，自己解压缩
 |_InvertedIndex.py // 倒排索引模块（构建/获取倒排索引，构建 VSM ）
@@ -21,8 +22,9 @@ todo:
 |_SpellingCorrect.py // 纠正拼写
 |_Score.py // 评分
 |_TopK.py // Top-K
+```
 
 ...etc.
 
 
-DUE: June 27, 2018
+**DUE: June 27, 2018**
