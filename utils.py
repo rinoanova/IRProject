@@ -7,8 +7,10 @@ from nltk import word_tokenize
 # - 优化词表过滤规则
 
 # 非 Linux 环境下记得自己改路径
-ppath = os.getcwd()
+ppath = os.getcwd()+'/'
 rpath = ppath + '/Reuters/'
+# 语料数量是常数 by 文件夹下文件数量
+D = 10788 
 
 # 将数据写入文件
 def write_to_file(data, filename):
@@ -37,17 +39,14 @@ def process_doc_content(filename):
         content = file.read()
     res = []
     result = []
-    # 标点符号
-    punc = [',', '.', ';', ':', '&', '>', "'", '"','`', '+', '*', '?', '!']
+    # 标点符号和数字
+    punc_digit = [',', '.', ';', ':', '&', '>', "'", '"','`', '+', '*', '?', '!', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     for word in word_tokenize(content):
         # 转换为小写
         word = word.lower()
         # 处理标点符号
-        for c in punc:
+        for c in punc_digit:
             word = word.replace(c, '')
-        # 如果都是数字
-        if word.isdigit()==True:
-            continue
         # 处理空字符串
         if len(word) == 0 or word[0] == '-':
             continue
