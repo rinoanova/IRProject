@@ -33,3 +33,11 @@ import InvertedIndex
 # ------------
 # 搜索 etc.
 # ------------
+def main():
+    #boolean query
+    query = input("Input your query:\n")
+    index = BooleanQuery.boolquery(query)
+    print(index) #只输出了index，还没有写打印
+
+if __name__ == "__main__":
+    main()
