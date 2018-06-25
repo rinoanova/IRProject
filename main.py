@@ -33,3 +33,22 @@ import InvertedIndex
 # ------------
 # 搜索 etc.
 # ------------
+
+def main():
+    while True:
+        number = input("Choose the way to query:\n  1.BooleanQuery\n  2.PhraseQuery\nInput 0 to quit\n")
+        if int(number)==0:
+            break
+        if int(number)!=1 and int(number)!=2:
+            print("ERROR: WRONG INPUT!")
+            continue
+        query = input("Input your query:\n")
+        #boolean query
+        if(int(number)==1):
+            BooleanQuery.controller(query)
+        #phrase query
+        if(int(number)==2):
+            PhraseQuery.phrasequery(query)
+
+if __name__ == "__main__":
+    main()
