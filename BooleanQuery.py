@@ -1,6 +1,9 @@
 
 import json
 import utils
+import chardet
+import tokenize
+import html
 
 #load the file
 def loadIndex(word):
@@ -171,6 +174,18 @@ def boolquery(query):
 
 
 #get user input and judge the boolean word
+def controller(query):
+    index = boolquery(query)
+    query.replace('NOT','')
+    query.replace('AND','')
+    query.replace('OR','')
+    query.replace('(','')
+    query.replace(')','')
+    query.replace('  ',' ')
+    wordlist = []
+    wordlist = query.split(' ')
+    #print(index)
+    printtext(wordlist,index)
 
 #for each boolean word, do something to the index(notice ( and ) )
 #and
@@ -236,6 +251,28 @@ def handle_not(index, all_doc):
         result.append(all_doc[j])
         j+=1
     return result
+
+def printtext(wordlist, doclist):
+    directory = "./Reuters"
+    highlights = []
+    for word in wordlist:
+        highlights.append(word)
+        highlights.append(word.upper())
+        highlights.append(word.title())
+    for docid in doclist:
+        with open(directory + '/' + str(docid) + '.html', 'rb') as htmlfile:
+            rawdata = htmlfile.read()
+            encoding = chardet.detect(
+                rawdata)['encoding']
+            text = rawdata.decode(encoding)
+            text = html.unescape(text)
+        #find title
+        #find body
+        print("************** Boolean Query Result **************")
+        print("\033[1;33;40m"+str(docid)+".html"+"\033[0m")
+        for word in highlights:
+            text = text.replace(word, "\033[1;31;40m" + word + "\033[0m")
+        print(text)
 
 #main
 # t = loadIndex('shoppers')
