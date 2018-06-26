@@ -43,7 +43,7 @@ def get_wordlist(index):
 def create_VSM(index, doc_size, wordlist):
     VSM = {}
     for d in range(1, utils.D*2+1): # 21576
-        if d%1000==0:
+        if d % 1000 == 0:
             print('Processing:'+str(d))
         # 不考虑文件夹内不存在的篇目
         if doc_size[d]==0:
@@ -66,3 +66,18 @@ def create_VSM(index, doc_size, wordlist):
         VSM[d] = tf_idf_list
 
     return VSM
+
+# 为 Top K 暴力查表做准备
+def VSM_sum(VSM):
+    sum_VSM = {}
+    for d in range(1, utils.D*2+1): # 21576
+        if d % 1000 == 0:
+            print('Processing'+str(d))
+        if str(d) in VSM.keys():
+            sum = 0.0
+            for tfidf in VSM[str(d)]:
+                if float(tfidf) < 1:
+                    sum += float(tfidf)
+            sum_VSM[d] = '%.3f' % sum
+    
+    return sum_VSM

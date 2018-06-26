@@ -19,12 +19,15 @@ import GlobbingQuery
 # # 生成 VSM
 # print('Creating VSM...')
 # VSM = InvertedIndex.create_VSM(index, doc_size, wordlist)
+# # 为 Top K 暴力查表做计算
+# VSM_sum = InvertedIndex.VSM_sum(VSM)
 # # 将文件存档
 # print('Saving Files...')
 # utils.write_to_file(index, utils.ppath+'index.json')
 # utils.write_to_file(wordlist, utils.ppath+'wordlist.json')
 # utils.write_to_file(doc_size, utils.ppath+'doc_size.json')
 # utils.write_to_file(VSM, utils.ppath+'VSM.json')
+# utils.write_to_file(VSM_sum, utils.ppath+'VSM_sum.json')
 #
 # 从 JSON 读取数据， JSON 文件默认放在 IRProject 下
 print('Getting Data from Files...')
