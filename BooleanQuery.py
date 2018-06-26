@@ -22,10 +22,19 @@ def boolquery(query):
     i=0
     while i<len(query):
         if(query[i]=='('): #when we meet ()
+            lcount = 1
+            rcount = 0
             isclose = False
-            i+=1
+            i += 1
             while(i<len(query)):
+                if(query[i]=='('):
+                    lcount += 1
                 if(query[i]==')'):
+                    rcount += 1
+                    if(rcount<lcount):
+                        word += ')'
+                        i += 1
+                        continue
                     isclose=True
                     break
                 else:
