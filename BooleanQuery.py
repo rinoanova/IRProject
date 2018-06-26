@@ -4,6 +4,7 @@ import utils
 import chardet
 import tokenize
 import html
+import topk
 
 #input word and return the inverted index of the word
 def boolquery(query):
@@ -183,8 +184,10 @@ def controller(query):
     query.replace('  ',' ')
     wordlist = []
     wordlist = query.split(' ')
-    #print(index)
-    utils.printtext(wordlist,index)
+    k = input("how many doc do you want to see at most?\n")
+    docID = topk.topK(wordlist,index,int(k))
+    #print(index)k
+    utils.printtext(wordlist,docID)
 
 #for each boolean word, do something to the index(notice ( and ) )
 #and
