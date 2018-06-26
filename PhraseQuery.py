@@ -3,6 +3,7 @@ import utils
 import json
 import chardet
 import html
+import topk
 
 def phrasequery_wordlist(wordlist):
     docID = []
@@ -112,30 +113,12 @@ def phrasequery(query):
     wordlist = query.split(' ')
     docID = phrasequery_wordlist(wordlist)
     if docID is not None:
+        k = input("how many doc do you want to see at most?\n")
+        docID = topk.topK(wordlist,docID,int(k))
         printquery = [query]
-        printtext(printquery, docID)
-
-def printtext(wordlist, doclist):
-    directory = "./Reuters"
-    highlights = []
-    for word in wordlist:
-        highlights.append(word)
-        highlights.append(word.upper())
-        highlights.append(word.title())
-    for docid in doclist:
-        with open(directory + '/' + str(docid) + '.html', 'rb') as htmlfile:
-            rawdata = htmlfile.read()
-            encoding = chardet.detect(
-                rawdata)['encoding']
-            text = rawdata.decode(encoding)
-            text = html.unescape(text)
-        #find title
-        #find body
-        print("************** Boolean Query Result **************")
-        print("\033[1;33;40m"+str(docid)+".html"+"\033[0m")
-        for word in highlights:
-            text = text.replace(word, "\033[1;31;40m" + word + "\033[0m")
-        print(text)
+        #print(index)k
+        utils.printtext(printquery,docID)
+        #printtext(printquery, docID)
 
 #query = input("Input your query:\n")
 #phrasequery(query)
