@@ -1,16 +1,9 @@
 
 import json
 import utils
-
-#load the file
-def loadIndex(word):
-    f = open("index.json", encoding='utf-8')
-    dictionary = json.load(f)
-    index = dictionary[word]
-    result = []
-    for item in index:
-        result.append(int(item))
-    return result
+import chardet
+import tokenize
+import html
 
 #input word and return the inverted index of the word
 def boolquery(query):
@@ -104,10 +97,10 @@ def boolquery(query):
                         print("Bad Query! Meet AND First!")
                         return []
                     if isNot: #like: AND NOT ()
-                        result_2 = handle_not(loadIndex(word), all_doc)
+                        result_2 = handle_not(utils.loadIndex(word), all_doc)
                         isNot = False
                     else:
-                        result_2 = loadIndex(word)
+                        result_2 = utils.loadIndex(word)
                     result = handle_and(result, result_2)
                     isAnd = False
                 elif isOr: #() is after OR
@@ -116,17 +109,17 @@ def boolquery(query):
                         return []
                     if isNot: #like: OR NOT ()
                         isNot = False
-                        result_2 = handle_not(loadIndex(word), all_doc)
+                        result_2 = handle_not(utils.loadIndex(word), all_doc)
                     else:
-                        result_2 = loadIndex(word)
+                        result_2 = utils.loadIndex(word)
                     result = handle_or(result, result_2)
                     isOr = False
                 else: #() is in the front
                     if isNot:# like: NOT ()
                         isNot = False
-                        result = handle_not(loadIndex(word), all_doc)
+                        result = handle_not(utils.loadIndex(word), all_doc)
                     else:
-                        result = loadIndex(word)
+                        result = utils.loadIndex(word)
                 word_last = word
                 word=''
 
@@ -140,10 +133,10 @@ def boolquery(query):
                         print("Bad Query! Meet AND First!")
                         return []
                     if isNot:  # like: AND NOT ()
-                        result_2 = handle_not(loadIndex(word), all_doc)
+                        result_2 = handle_not(utils.loadIndex(word), all_doc)
                         isNot = False
                     else:
-                        result_2 = loadIndex(word)
+                        result_2 = utils.loadIndex(word)
                     result = handle_and(result, result_2)
                     isAnd = False
                 elif isOr:  # () is after OR
@@ -152,17 +145,17 @@ def boolquery(query):
                         return []
                     if isNot:  # like: OR NOT ()
                         isNot = False
-                        result_2 = handle_not(loadIndex(word), all_doc)
+                        result_2 = handle_not(utils.loadIndex(word), all_doc)
                     else:
-                        result_2 = loadIndex(word)
+                        result_2 = utils.loadIndex(word)
                     result = handle_or(result, result_2)
                     isOr = False
                 else:  # () is in the front
                     if isNot:  # like: NOT ()
                         isNot = False
-                        result = handle_not(loadIndex(word), all_doc)
+                        result = handle_not(utils.loadIndex(word), all_doc)
                     else:
-                        result = loadIndex(word)
+                        result = utils.loadIndex(word)
                 word_last = word
                 word = ''
         i = i+1
@@ -171,6 +164,18 @@ def boolquery(query):
 
 
 #get user input and judge the boolean word
+def controller(query):
+    index = boolquery(query)
+    query.replace('NOT','')
+    query.replace('AND','')
+    query.replace('OR','')
+    query.replace('(','')
+    query.replace(')','')
+    query.replace('  ',' ')
+    wordlist = []
+    wordlist = query.split(' ')
+    #print(index)
+    utils.printtext(wordlist,index)
 
 #for each boolean word, do something to the index(notice ( and ) )
 #and
@@ -238,7 +243,7 @@ def handle_not(index, all_doc):
     return result
 
 #main
-# t = loadIndex('shoppers')
+# t = utils.loadIndex('shoppers')
 #
 # print("*********INDEX********")
 # print(t)
