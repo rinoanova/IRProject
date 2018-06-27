@@ -43,10 +43,10 @@ btree, btree_rev = GlobbingQuery.BuildTree(wordlist)
 def main():
     while True:
         print("\n", "*"*50)
-        number = input("Choose the way to query:\n  1.BooleanQuery\n  2.PhraseQuery\n  3.GlobbingQuery\nInput 0 to quit\n")
+        number = input("Choose the way to query:\n  1.Boolean Query\n  2.Phrase Query\n  3.Wildcard Query\n  4.Fuzzy Query\nInput 0 to quit\n")
         if int(number)==0:
             break
-        if int(number) > 3 or int(number) < 0:
+        if int(number) > 4 or int(number) < 0:
             print("ERROR: WRONG INPUT!")
             continue
         query = input("Input your query:\n")
@@ -56,9 +56,16 @@ def main():
         #phrase query
         if(int(number)==2):
             PhraseQuery.phrasequery(query)
-        #globbing query
+        #wildcard query
         if(int(number)==3):
             GlobbingQuery.controller(query, btree, btree_rev,wordlist)
+        #Fuzzy Query
+        if(int(number)==4):
+            SpellingCorrect.spelling_correct(query)
+
+        #merge
+        #if query.find('*')!=-1:
+            #GlobbingQuery.controller(query, btree, btree_rev, wordlist)
 
 
 if __name__ == "__main__":
