@@ -285,8 +285,7 @@ def controller(query, btree, btree_rev, words):
     for i in range(1,len(docIDlist)):
         result = BooleanQuery.handle_or(result,docIDlist[i])
 
-    k = input("how many doc do you want to see at most?\n")
-    docID = topk.topK(wordlist, result, int(k))
+    docID = topk.topK(wordlist, result)
     utils.printtext(wordlist, docID)
     #utils.printtext(wordlist, result)
     return True
