@@ -184,8 +184,7 @@ def controller(query):
     query.replace('  ',' ')
     wordlist = []
     wordlist = query.split(' ')
-    k = input("how many doc do you want to see at most?\n")
-    docID = topk.topK(wordlist,index,int(k))
+    docID = topk.topK(wordlist,index)
     #print(index)k
     utils.printtext(wordlist,docID)
 
