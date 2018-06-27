@@ -87,19 +87,21 @@ class ZPriorityQ(ZHeap):
         val = ZHeap.DELETE(self)
         return val
 
-def topK(wordlist, docID, K):
+def topK(wordlist, docID):
 
-    print("here is topK")
+    K = int(input("how many doc do you want to see at most?\nprint -1 for all docs.\n"))
+    #print("here is topK")
     VSM_sum = utils.get_from_file('VSM_sum')
     pq = ZPriorityQ()
-    if len(docID) < K:
+    if len(docID) < K or K == -1:
         K = len(docID)
     for doc in docID:
         #calculate the score of cos(q,d)
-        value = score.cosinescore(wordlist, doc)
+        #value = score.cosinescore(wordlist, doc)
         #print(value)
         #get the tf-idf
-        doc_score = VSM_sum[str(doc)]+value
+        #doc_score = VSM_sum[str(doc)]+value
+        doc_score = VSM_sum[str(doc)]
         pq.enQ(doc_score, doc)
     result = []
     for i in range(K):
