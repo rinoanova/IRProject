@@ -89,7 +89,8 @@ class ZPriorityQ(ZHeap):
 
 def topK(wordlist, docID):
 
-    K = int(input("how many doc do you want to see at most?\nprint -1 for all docs.\n"))
+     K = int(input("how many doc do you want to see at most?\nprint -1 for all docs.\n"))
+    print("\n\n************* Show Result ************\n\nFind ",len(docID), " docs.\n")
     #print("here is topK")
     VSM_sum = utils.get_from_file('VSM_sum')
     pq = ZPriorityQ()
@@ -105,7 +106,10 @@ def topK(wordlist, docID):
         pq.enQ(doc_score, doc)
     result = []
     for i in range(K):
-        docID = pq.deQ()
-        print(docID)
-        result.append(docID)
+        doc = pq.deQ()
+        #print(doc)
+        result.append(doc)
+    print("Show ", len(result), " docs.\n")
+    print(result)
+    stop = input("\nPress any key to show articles...\n")
     return result
