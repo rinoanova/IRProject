@@ -1,5 +1,6 @@
 import BooleanQuery
 import utils
+import topk
 
 #globbing query
 #using * to match all character
@@ -284,5 +285,8 @@ def controller(query, btree, btree_rev, words):
     for i in range(1,len(docIDlist)):
         result = BooleanQuery.handle_or(result,docIDlist[i])
 
-    utils.printtext(wordlist, result)
+    k = input("how many doc do you want to see at most?\n")
+    docID = topk.topK(wordlist, result, int(k))
+    utils.printtext(wordlist, docID)
+    #utils.printtext(wordlist, result)
     return True
