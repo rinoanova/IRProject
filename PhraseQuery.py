@@ -113,9 +113,12 @@ def phrasequery(query):
     wordlist = query.split(' ')
     docID = phrasequery_wordlist(wordlist)
     if docID is not None:
-        k = input("how many doc do you want to see at most?\n")
-        docID = topk.topK(wordlist,docID,int(k))
+        docID = topk.topK(wordlist,docID)
         printquery = [query]
+        newwords = wordlist[0].title()
+        for i in range(1, len(wordlist)):
+            newwords += " "+wordlist[i].title()
+        printquery.append(newwords)
         #print(index)k
         utils.printtext(printquery,docID)
         #printtext(printquery, docID)
